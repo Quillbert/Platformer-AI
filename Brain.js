@@ -29,7 +29,7 @@ class Brain {
 	}
 	mutate() {
 		var mutationRate = 0.01
-		for (let i = 0; i < directions.length; i++) {
+		for (let i = 0; i < this.directions.length; i++) {
 			var rand = random(1);
 			if(rand < mutationRate) {
 				this.directions[i][0] = floor(random(-1,2));

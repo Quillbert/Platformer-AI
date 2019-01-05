@@ -37,8 +37,8 @@ class Tile {
 				image(stack,this.x,this.y);
 				break;
 		}
-		for(let i = 0; i < pop.players.length; i++) {
-			this.touchPlayer(pop.players[i]);
+		for(let i = 0; i < population.players.length; i++) {
+			this.touchPlayer(population.players[i]);
 		}
 	}
 }

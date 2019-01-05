@@ -20,7 +20,7 @@ class Population {
 		}
 	}
 	calculateFitness() {
-		for(let i = 0; i < this.players; i++) {
+		for(let i = 0; i < this.players.length; i++) {
 			this.players[i].calculateFitness();
 		}
 	}
@@ -33,21 +33,24 @@ class Population {
 		return true;
 	}
 	naturalSelection() {
-		var newPlayers = new Player[this.players.length];
+		var newPlayers = [];
 		this.setBestPlayer();
 		this.calculateFitnessSum();
-		newPlayers[0] = this.players[bestPlayer].gimmeBaby(0);
+		newPlayers[0] = this.players[this.bestPlayer].gimmeBaby(0);
 		newPlayers[0].isBest = true;
-		for(let i = 1; i < newPlayers.length; i++) {
-			Player parent = this.selectParent();
-			if(gen % offset == 0) {
+		for(let i = 1; i < this.players.length; i++) {
+			var parent = this.selectParent();
+			if(this.gen % offset == 0) {
 				newPlayers[i] = parent.gimmeBaby(increase);
 			} else {
 				newPlayers[i] = parent.gimmeBaby(0);
 			}
 		}
-		this.players = newPlayers.clone();
-		gen++;
+	    this.players = [];
+	    for(var i = 0 ; i< newPlayers.length;i++){
+		    this.players[i] = newPlayers[i];
+	    }
+		this.gen++;
 	}
 	mutateDemBabies() {
 		for(let i = 0; i < this.players.length; i++) {
@@ -63,7 +66,7 @@ class Population {
 	selectParent() {
 		var rand = random(this.fitnessSum);
 		var runningSum = 0;
-		for (var i = 0; i < this.players.length; i++) {
+		for (let i = 0; i < this.players.length; i++) {
 			runningSum += this.players[i].fitness;
 			if(runningSum > rand) {
 				return this.players[i];
@@ -80,6 +83,6 @@ class Population {
 				maxIndex = i;
 			}
 		}
-		bestPlayer = maxIndex;
+		this.bestPlayer = maxIndex;
 	}
 }
