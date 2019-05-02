@@ -36,7 +36,11 @@ class Population {
 		var newPlayers = [];
 		this.setBestPlayer();
 		this.calculateFitnessSum();
-		newPlayers[0] = this.players[this.bestPlayer].gimmeBaby(0);
+		if(this.gen % offset == 0) {
+			newPlayers[0] = this.players[this.bestPlayer].gimmeBaby(increase);
+		} else {
+			newPlayers[0] = this.players[this.bestPlayer].gimmeBaby(0);
+		}
 		newPlayers[0].isBest = true;
 		for(let i = 1; i < this.players.length; i++) {
 			var parent = this.selectParent();
